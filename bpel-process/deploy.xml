@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03"
+        xmlns:catalog="http://globalbooks.com/services/catalog"
+        xmlns:orders="http://globalbooks.com/services/orders"
+        xmlns:tns="http://globalbooks.com/bpel/placeorder">
+
+    <process name="tns:PlaceOrderProcess">
+        <!-- Partner link bindings -->
+        <provide partnerLink="client">
+            <service name="tns:PlaceOrderService" port="PlaceOrderPort"/>
+        </provide>
+        
+        <invoke partnerLink="catalogService">
+            <service name="catalog:CatalogService" port="CatalogPort"/>
+        </invoke>
+        
+        <invoke partnerLink="orderService">
+            <service name="orders:OrdersService" port="OrdersPort"/>
+        </invoke>
+    </process>
+    
+</deploy>

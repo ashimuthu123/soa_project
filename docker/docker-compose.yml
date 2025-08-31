@@ -1,0 +1,236 @@
+version: '3.8'
+
+services:
+  # RabbitMQ - Message Broker
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: globalbooks-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin123
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+    networks:
+      - globalbooks-network
+
+  # PostgreSQL - Database
+  postgres:
+    image: postgres:15
+    container_name: globalbooks-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=globalbooks
+      - POSTGRES_USER=globalbooks
+      - POSTGRES_PASSWORD=globalbooks123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - globalbooks-network
+
+  # Redis - Caching
+  redis:
+    image: redis:7-alpine
+    container_name: globalbooks-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - globalbooks-network
+
+  # Catalog Service
+  catalog-service:
+    build:
+      context: ../catalog-service
+      dockerfile: Dockerfile
+    container_name: globalbooks-catalog
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - CATALOG_DB_HOST=postgres
+      - CATALOG_DB_PORT=5432
+      - CATALOG_DB_NAME=globalbooks
+      - CATALOG_DB_USER=globalbooks
+      - CATALOG_DB_PASSWORD=globalbooks123
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - globalbooks-network
+    restart: unless-stopped
+
+  # Orders Service
+  orders-service:
+    build:
+      context: ../orders-service
+      dockerfile: Dockerfile
+    container_name: globalbooks-orders
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - ORDERS_DB_HOST=postgres
+      - ORDERS_DB_PORT=5432
+      - ORDERS_DB_NAME=globalbooks
+      - ORDERS_DB_USER=globalbooks
+      - ORDERS_DB_PASSWORD=globalbooks123
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=admin
+      - RABBITMQ_PASS=admin123
+    depends_on:
+      - postgres
+      - rabbitmq
+      - redis
+    networks:
+      - globalbooks-network
+    restart: unless-stopped
+
+  # Payments Service
+  payments-service:
+    build:
+      context: ../payments-service
+      dockerfile: Dockerfile
+    container_name: globalbooks-payments
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - PAYMENTS_DB_HOST=postgres
+      - PAYMENTS_DB_PORT=5432
+      - PAYMENTS_DB_NAME=globalbooks
+      - PAYMENTS_DB_USER=globalbooks
+      - PAYMENTS_DB_PASSWORD=globalbooks123
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=admin
+      - RABBITMQ_PASS=admin123
+    depends_on:
+      - postgres
+      - rabbitmq
+      - redis
+    networks:
+      - globalbooks-network
+    restart: unless-stopped
+
+  # Shipping Service
+  shipping-service:
+    build:
+      context: ../shipping-service
+      dockerfile: Dockerfile
+    container_name: globalbooks-shipping
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SHIPPING_DB_HOST=postgres
+      - SHIPPING_DB_PORT=5432
+      - SHIPPING_DB_NAME=globalbooks
+      - SHIPPING_DB_USER=globalbooks
+      - SHIPPING_DB_PASSWORD=globalbooks123
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=admin
+      - RABBITMQ_PASS=admin123
+    depends_on:
+      - postgres
+      - rabbitmq
+      - redis
+    networks:
+      - globalbooks-network
+    restart: unless-stopped
+
+  # Apache ODE - BPEL Engine
+  bpel-engine:
+    image: apache/ode:latest
+    container_name: globalbooks-bpel
+    ports:
+      - "8084:8080"
+    environment:
+      - ODE_HOME=/opt/ode
+    volumes:
+      - ./bpel/processes:/opt/ode/processes
+      - ./bpel/conf:/opt/ode/conf
+    depends_on:
+      - postgres
+    networks:
+      - globalbooks-network
+    restart: unless-stopped
+
+  # Nginx - Load Balancer
+  nginx:
+    image: nginx:alpine
+    container_name: globalbooks-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - catalog-service
+      - orders-service
+      - payments-service
+      - shipping-service
+    networks:
+      - globalbooks-network
+    restart: unless-stopped
+
+  # Prometheus - Monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: globalbooks-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    networks:
+      - globalbooks-network
+    restart: unless-stopped
+
+  # Grafana - Dashboard
+  grafana:
+    image: grafana/grafana:latest
+    container_name: globalbooks-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    depends_on:
+      - prometheus
+    networks:
+      - globalbooks-network
+    restart: unless-stopped
+
+volumes:
+  rabbitmq_data:
+  postgres_data:
+  redis_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  globalbooks-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

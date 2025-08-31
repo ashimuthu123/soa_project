@@ -1,0 +1,11 @@
+D:\GitHub\soa_project_v2\catalog-service\src\main\java\com\globalbooks\catalog\CatalogServiceImpl.java
+D:\GitHub\soa_project_v2\catalog-service\src\main\java\com\globalbooks\catalog\Book.java
+D:\GitHub\soa_project_v2\catalog-service\src\main\java\com\globalbooks\catalog\GetBookRequest.java
+D:\GitHub\soa_project_v2\catalog-service\src\main\java\com\globalbooks\catalog\security\WSSecurityConfig.java
+D:\GitHub\soa_project_v2\catalog-service\src\main\java\com\globalbooks\catalog\BookSearchResponse.java
+D:\GitHub\soa_project_v2\catalog-service\src\main\java\com\globalbooks\catalog\BookArray.java
+D:\GitHub\soa_project_v2\catalog-service\src\main\java\com\globalbooks\catalog\CatalogApplication.java
+D:\GitHub\soa_project_v2\catalog-service\src\main\java\com\globalbooks\catalog\SearchBooksRequest.java
+D:\GitHub\soa_project_v2\catalog-service\src\main\java\com\globalbooks\catalog\BookResponse.java
+D:\GitHub\soa_project_v2\catalog-service\src\main\java\com\globalbooks\catalog\security\WSSecurityHandler.java
+D:\GitHub\soa_project_v2\catalog-service\src\main\java\com\globalbooks\catalog\CatalogServicePortType.java

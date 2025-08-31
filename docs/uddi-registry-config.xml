@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uddi:registry xmlns:uddi="urn:uddi-org:api_v3">
+    
+    <!-- Business Entity: GlobalBooks Inc. -->
+    <uddi:businessEntity businessKey="uuid:12345678-1234-1234-1234-123456789012">
+        <uddi:name>GlobalBooks Inc.</uddi:name>
+        <uddi:description>Global e-commerce platform for books and publications</uddi:description>
+        <uddi:businessServices>
+            
+            <!-- Catalog Service -->
+            <uddi:businessService serviceKey="uuid:catalog-service-1234-5678-9abc-def012345678">
+                <uddi:name>CatalogService</uddi:name>
+                <uddi:description>Service for managing book catalog and inventory</uddi:description>
+                <uddi:bindingTemplates>
+                    <uddi:bindingTemplate bindingKey="uuid:catalog-binding-1234-5678-9abc-def012345678">
+                        <uddi:accessPoint useType="endpoint">http://localhost:8080/catalog-service/CatalogService</uddi:accessPoint>
+                        <uddi:tModelInstanceDetails>
+                            <uddi:tModelInstanceInfo tModelKey="uuid:catalog-wsdl-1234-5678-9abc-def012345678">
+                                <uddi:instanceDetails>
+                                    <uddi:overviewURL>http://localhost:8080/catalog-service/CatalogService?wsdl</uddi:overviewURL>
+                                </uddi:instanceDetails>
+                            </uddi:tModelInstanceInfo>
+                        </uddi:tModelInstanceDetails>
+                    </uddi:bindingTemplate>
+                </uddi:bindingTemplates>
+            </uddi:businessService>
+            
+            <!-- Orders Service -->
+            <uddi:businessService serviceKey="uuid:orders-service-1234-5678-9abc-def012345678">
+                <uddi:name>OrdersService</uddi:name>
+                <uddi:description>REST API for order management and processing</uddi:description>
+                <uddi:bindingTemplates>
+                    <uddi:bindingTemplate bindingKey="uuid:orders-binding-1234-5678-9abc-def012345678">
+                        <uddi:accessPoint useType="endpoint">http://localhost:8081/orders</uddi:accessPoint>
+                        <uddi:tModelInstanceDetails>
+                            <uddi:tModelInstanceInfo tModelKey="uuid:orders-rest-1234-5678-9abc-def012345678">
+                                <uddi:instanceDetails>
+                                    <uddi:overviewURL>http://localhost:8081/orders</uddi:overviewURL>
+                                </uddi:instanceDetails>
+                            </uddi:tModelInstanceInfo>
+                        </uddi:tModelInstanceDetails>
+                    </uddi:bindingTemplate>
+                </uddi:bindingTemplates>
+            </uddi:businessService>
+            
+            <!-- Payments Service -->
+            <uddi:businessService serviceKey="uuid:payments-service-1234-5678-9abc-def012345678">
+                <uddi:name>PaymentsService</uddi:name>
+                <uddi:description>Service for processing payments and financial transactions</uddi:description>
+                <uddi:bindingTemplates>
+                    <uddi:bindingTemplate bindingKey="uuid:payments-binding-1234-5678-9abc-def012345678">
+                        <uddi:accessPoint useType="endpoint">http://localhost:8082/payments</uddi:accessPoint>
+                        <uddi:tModelInstanceDetails>
+                            <uddi:tModelInstanceInfo tModelKey="uuid:payments-rest-1234-5678-9abc-def012345678">
+                                <uddi:instanceDetails>
+                                    <uddi:overviewURL>http://localhost:8082/payments</uddi:overviewURL>
+                                </uddi:instanceDetails>
+                            </uddi:tModelInstanceInfo>
+                        </uddi:tModelInstanceDetails>
+                    </uddi:bindingTemplate>
+                </uddi:bindingTemplates>
+            </uddi:businessService>
+            
+            <!-- Shipping Service -->
+            <uddi:businessService serviceKey="uuid:shipping-service-1234-5678-9abc-def012345678">
+                <uddi:name>ShippingService</uddi:name>
+                <uddi:description>Service for managing shipping and delivery operations</uddi:description>
+                <uddi:bindingTemplates>
+                    <uddi:bindingTemplate bindingKey="uuid:shipping-binding-1234-5678-9abc-def012345678">
+                        <uddi:accessPoint useType="endpoint">http://localhost:8083/shipping</uddi:accessPoint>
+                        <uddi:tModelInstanceDetails>
+                            <uddi:tModelInstanceInfo tModelKey="uuid:shipping-rest-1234-5678-9abc-def012345678">
+                                <uddi:instanceDetails>
+                                    <uddi:overviewURL>http://localhost:8083/shipping</uddi:overviewURL>
+                                </uddi:instanceDetails>
+                            </uddi:tModelInstanceInfo>
+                        </uddi:tModelInstanceDetails>
+                    </uddi:bindingTemplate>
+                </uddi:bindingTemplates>
+            </uddi:businessService>
+            
+        </uddi:businessServices>
+    </uddi:businessEntity>
+    
+    <!-- T-Models for Service Definitions -->
+    <uddi:tModel tModelKey="uuid:catalog-wsdl-1234-5678-9abc-def012345678">
+        <uddi:name>CatalogService WSDL</uddi:name>
+        <uddi:description>WSDL definition for CatalogService SOAP operations</uddi:description>
+        <uddi:overviewDoc>
+            <uddi:overviewURL>http://localhost:8080/catalog-service/CatalogService?wsdl</uddi:overviewURL>
+        </uddi:overviewDoc>
+    </uddi:tModel>
+    
+    <uddi:tModel tModelKey="uuid:orders-rest-1234-5678-9abc-def012345678">
+        <uddi:name>OrdersService REST API</uddi:name>
+        <uddi:description>REST API definition for OrdersService</uddi:description>
+        <uddi:overviewDoc>
+            <uddi:overviewURL>http://localhost:8081/orders</uddi:overviewURL>
+        </uddi:overviewDoc>
+    </uddi:tModel>
+    
+    <uddi:tModel tModelKey="uuid:payments-rest-1234-5678-9abc-def012345678">
+        <uddi:name>PaymentsService REST API</uddi:name>
+        <uddi:description>REST API definition for PaymentsService</uddi:description>
+        <uddi:overviewDoc>
+            <uddi:overviewURL>http://localhost:8082/payments</uddi:overviewURL>
+        </uddi:overviewDoc>
+    </uddi:tModel>
+    
+    <uddi:tModel tModelKey="uuid:shipping-rest-1234-5678-9abc-def012345678">
+        <uddi:name>ShippingService REST API</uddi:name>
+        <uddi:description>REST API definition for ShippingService</uddi:description>
+        <uddi:overviewDoc>
+            <uddi:overviewURL>http://localhost:8083/shipping</uddi:overviewURL>
+        </uddi:overviewDoc>
+    </uddi:tModel>
+    
+</uddi:registry>

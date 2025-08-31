@@ -1,0 +1,11 @@
+com\globalbooks\catalog\CatalogServicePortType.class
+com\globalbooks\catalog\CatalogServiceImpl.class
+com\globalbooks\catalog\Book.class
+com\globalbooks\catalog\BookArray.class
+com\globalbooks\catalog\CatalogApplication.class
+com\globalbooks\catalog\GetBookRequest.class
+com\globalbooks\catalog\security\WSSecurityConfig.class
+com\globalbooks\catalog\BookSearchResponse.class
+com\globalbooks\catalog\security\WSSecurityConfig$PasswordCallbackHandler.class
+com\globalbooks\catalog\BookResponse.class
+com\globalbooks\catalog\SearchBooksRequest.class

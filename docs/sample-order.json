@@ -1,0 +1,21 @@
+{
+  "customerName": "John Doe",
+  "customerEmail": "john.doe@example.com",
+  "customerAddress": "123 Main Street, Anytown, CA 90210, United States",
+  "orderItems": [
+    {
+      "bookId": "BOOK-001",
+      "bookTitle": "The Great Gatsby",
+      "bookIsbn": "978-0-123456-47-2",
+      "quantity": 2,
+      "unitPrice": 12.99
+    },
+    {
+      "bookId": "BOOK-002",
+      "bookTitle": "To Kill a Mockingbird",
+      "bookIsbn": "978-0-123456-48-9",
+      "quantity": 1,
+      "unitPrice": 14.99
+    }
+  ]
+}

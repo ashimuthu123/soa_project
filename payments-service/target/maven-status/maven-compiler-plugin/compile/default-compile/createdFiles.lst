@@ -1,0 +1,8 @@
+com\globalbooks\payments\RabbitMQConfig.class
+com\globalbooks\payments\PaymentProcessor.class
+com\globalbooks\payments\controller\PaymentsController.class
+com\globalbooks\payments\model\Payment.class
+com\globalbooks\payments\model\PaymentMethod.class
+com\globalbooks\payments\model\PaymentStatus.class
+com\globalbooks\payments\PaymentsApplication.class
+com\globalbooks\payments\config\OAuth2Config.class

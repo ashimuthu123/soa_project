@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Order Creation Schema",
+  "description": "Schema for creating a new order in the GlobalBooks system",
+  "type": "object",
+  "required": ["customerName", "customerEmail", "customerAddress", "orderItems"],
+  "properties": {
+    "customerName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "description": "Full name of the customer placing the order"
+    },
+    "customerEmail": {
+      "type": "string",
+      "format": "email",
+      "description": "Email address of the customer"
+    },
+    "customerAddress": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 500,
+      "description": "Shipping address for the order"
+    },
+    "orderItems": {
+      "type": "array",
+      "minItems": 1,
+      "description": "List of books being ordered",
+      "items": {
+        "type": "object",
+        "required": ["bookId", "bookTitle", "bookIsbn", "quantity", "unitPrice"],
+        "properties": {
+          "bookId": {
+            "type": "string",
+            "pattern": "^BOOK-[0-9]{3}$",
+            "description": "Unique identifier for the book"
+          },
+          "bookTitle": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "Title of the book"
+          },
+          "bookIsbn": {
+            "type": "string",
+            "pattern": "^[0-9]{3}-[0-9]-[0-9]{6}-[0-9]{2}-[0-9]$",
+            "description": "ISBN-13 format for the book"
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "description": "Quantity of this book being ordered"
+          },
+          "unitPrice": {
+            "type": "number",
+            "minimum": 0.01,
+            "maximum": 999.99,
+            "multipleOf": 0.01,
+            "description": "Price per unit of the book"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,8 @@
+D:\GitHub\soa_project_v2\shipping-service\src\main\java\com\globalbooks\shipping\model\ShippingMethod.java
+D:\GitHub\soa_project_v2\shipping-service\src\main\java\com\globalbooks\shipping\model\ShipmentStatus.java
+D:\GitHub\soa_project_v2\shipping-service\src\main\java\com\globalbooks\shipping\model\Shipment.java
+D:\GitHub\soa_project_v2\shipping-service\src\main\java\com\globalbooks\shipping\config\OAuth2Config.java
+D:\GitHub\soa_project_v2\shipping-service\src\main\java\com\globalbooks\shipping\ShippingApplication.java
+D:\GitHub\soa_project_v2\shipping-service\src\main\java\com\globalbooks\shipping\ShippingProcessor.java
+D:\GitHub\soa_project_v2\shipping-service\src\main\java\com\globalbooks\shipping\controller\ShippingController.java
+D:\GitHub\soa_project_v2\shipping-service\src\main\java\com\globalbooks\shipping\RabbitMQConfig.java

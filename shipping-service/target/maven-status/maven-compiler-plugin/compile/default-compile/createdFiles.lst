@@ -1,0 +1,8 @@
+com\globalbooks\shipping\RabbitMQConfig.class
+com\globalbooks\shipping\model\Shipment.class
+com\globalbooks\shipping\ShippingApplication.class
+com\globalbooks\shipping\config\OAuth2Config.class
+com\globalbooks\shipping\controller\ShippingController.class
+com\globalbooks\shipping\ShippingProcessor.class
+com\globalbooks\shipping\model\ShipmentStatus.class
+com\globalbooks\shipping\model\ShippingMethod.class
